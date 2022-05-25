@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_rpg.Services.CharacterService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,11 @@ namespace dotnet_Demo
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dotnet_Demo", Version = "v1" });
             });
+            services.AddScoped<ICharacterService, CharacterService>(); //kad god zelimo promijeniti implement. klasu samo u ovoj liniji promijenimo
+        //AddScoped kreiramo novu instancu requested servisa za svaki request koji dodje
+        //AddSingleton i AddTransient postoje jos
+        //AddTransient daje novu instancu za svaki kontoler i seris cak i za isti request
+        //AddSingleton daje samo jednu inszancu za bilo koji request
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
