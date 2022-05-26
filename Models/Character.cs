@@ -1,4 +1,6 @@
-namespace dotnet_rpg.Models
+using dotnet_Demo.Models;
+
+namespace dotnet_Demo.Models
 {
     public class Character
     {

@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using dotnet_rpg.Models;
+using dotnet_Demo.Models;
+using dotnet_Demo.Services.CharacterService;
 
-namespace dotnet_rpg.Services.CharacterService
+namespace dotnet_Demo.Services.CharacterService
 {
     public class CharacterService : ICharacterService
     {
