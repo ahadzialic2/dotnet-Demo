@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using dotnet_Demo.Dtos.Character;
 using dotnet_Demo.Models;
 using dotnet_Demo.Services.CharacterService;
 using Microsoft.AspNetCore.Mvc;
@@ -24,17 +25,17 @@ namespace dotnet_Demo.Controllers
         //set-ali smo rutu GetAll za metodu ispod
         //public IActionResult Get() { //povratni tip IActionResult nam omogucava da saljemo specificne http kodove klijentu zajedno
         // sa konkretnim podacima koji su requestovani
-         public async Task<ActionResult<ServiceResponse<List<Character>>>> Get() { //promijenjen povratni tip u ActionResult -> da se prikaze json schema na swaggeru
+         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get() { //promijenjen povratni tip u ActionResult -> da se prikaze json schema na swaggeru
             return Ok(await _characterService.GetAllCharacters()); //saljemo kod 200 i nas mock karakter 
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<Character>>> GetSingle(int id) {
+        public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> GetSingle(int id) {
             return Ok(await _characterService.GetCharacterById(id)); //vrati default ako nema ni jedan da zadovoljana c.id == id(parametar)
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<Character>>>> AddCharacter(Character newCharacter) {
+        public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> AddCharacter(AddCharacterDto newCharacter) {
             return Ok(await _characterService.AddCharacter(newCharacter));
         }
     }
