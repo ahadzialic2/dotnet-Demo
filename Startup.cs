@@ -33,6 +33,7 @@ namespace dotnet_Demo
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "dotnet_Demo", Version = "v1" });
             });
+            services.AddAutoMapper(typeof(Startup));
             services.AddScoped<ICharacterService, CharacterService>(); //kad god zelimo promijeniti implement. klasu samo u ovoj liniji promijenimo
         //AddScoped kreiramo novu instancu requested servisa za svaki request koji dodje
         //AddSingleton i AddTransient postoje jos
