@@ -29,9 +29,9 @@ namespace dotnet_Demo.Services.CharacterService
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
             Character character = _mapper.Map<Character>(newCharacter); //kreiramo novi Character objekt
-            character.Id = characters.Max(c => c.Id) + 1; //nalazimo max Id i inkrementiramo ga za 1
-            characters.Add(character);  //dodajemo novi karakter u listu
-            serviceResponse.Data = characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
+            _context.Characters.Add(character);  //dodajemo novi karakter u listu
+            await _context.SaveChangesAsync();
+            serviceResponse.Data = await _context.Characters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToListAsync();
             return serviceResponse;
         }
 
