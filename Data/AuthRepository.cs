@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using dotnet_Demo.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_Demo.Data
 {
@@ -18,6 +19,13 @@ namespace dotnet_Demo.Data
 
         public async Task<ServiceResponse<int>> Register(User user, string password)
         {
+            ServiceResponse<int> response = new ServiceResponse<int>();
+            if(await UserExists(user.Username))
+            {
+                response.Success = false;
+                response.Message = "User already exists.";
+                return response;
+            }
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
             user.PasswordHash = passwordHash;
@@ -25,14 +33,15 @@ namespace dotnet_Demo.Data
 
             _context.Add(user);
             await _context.SaveChangesAsync();
-            ServiceResponse<int> response = new ServiceResponse<int>();
             response.Data = user.Id;
             return response;    
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new System.NotImplementedException();
+            if(await _context.Users.AnyAsync(x => x.Username.ToLower().Equals(username.ToLower()))) {
+                return true;
+            } return false; 
         }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
