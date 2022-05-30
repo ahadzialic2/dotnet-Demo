@@ -42,6 +42,7 @@ namespace dotnet_Demo
         //AddSingleton i AddTransient postoje jos
         //AddTransient daje novu instancu za svaki kontoler i seris cak i za isti request
         //AddSingleton daje samo jednu inszancu za bilo koji request
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
