@@ -22,7 +22,7 @@ namespace dotnet_Demo.Controllers
         {
             _characterService = characterService;
         }
-
+        //[AllowAnonymous]
         [HttpGet("GetAll")]
         //set-ali smo rutu GetAll za metodu ispod
         //public IActionResult Get() { //povratni tip IActionResult nam omogucava da saljemo specificne http kodove klijentu zajedno
