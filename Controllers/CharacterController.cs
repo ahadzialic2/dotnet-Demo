@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using dotnet_Demo.Dtos.Character;
 using dotnet_Demo.Models;
 using dotnet_Demo.Services.CharacterService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_Demo.Controllers
 {
+    [Authorize] //od sada iskljucivo autorizovani mogu pristupiti metodama ovog kontrolera
     [ApiController]
     [Route("[controller]")]
     public class CharacterController : ControllerBase
