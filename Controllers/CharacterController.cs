@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using dotnet_Demo.Dtos.Character;
 using dotnet_Demo.Models;
@@ -28,7 +29,8 @@ namespace dotnet_Demo.Controllers
         //public IActionResult Get() { //povratni tip IActionResult nam omogucava da saljemo specificne http kodove klijentu zajedno
         // sa konkretnim podacima koji su requestovani
          public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get() { //promijenjen povratni tip u ActionResult -> da se prikaze json schema na swaggeru
-            return Ok(await _characterService.GetAllCharacters()); //saljemo kod 200 i nas mock karakter 
+            int id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
+            return Ok(await _characterService.GetAllCharacters(id)); //saljemo kod 200 i nas mock karakter 
         }
 
         [HttpGet("{id}")]
