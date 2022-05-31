@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using dotnet_Demo.Data;
 using dotnet_Demo.Dtos.Character;
 using dotnet_Demo.Models;
 using dotnet_Demo.Services.CharacterService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace dotnet_Demo.Services.CharacterService
@@ -15,12 +17,15 @@ namespace dotnet_Demo.Services.CharacterService
     {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public CharacterService(IMapper mapper,DataContext context)
+        public CharacterService(IMapper mapper,DataContext context, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
             _context = context;
+            _httpContextAccessor = httpContextAccessor;
         }
+        private int GetUserId() => int.Parse(_httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
         public async Task<ServiceResponse<List<GetCharacterDto>>> AddCharacter(AddCharacterDto newCharacter)
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
@@ -50,10 +55,10 @@ namespace dotnet_Demo.Services.CharacterService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters(int userId)
+        public async Task<ServiceResponse<List<GetCharacterDto>>> GetAllCharacters()
         {
             var serviceResponse = new ServiceResponse<List<GetCharacterDto>>();
-            var dbCharacters = await _context.Characters.Where(c => c.User.Id == userId).ToListAsync();
+            var dbCharacters = await _context.Characters.Where(c => c.User.Id == GetUserId()).ToListAsync();
             serviceResponse.Data = dbCharacters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
             return serviceResponse;
         }
