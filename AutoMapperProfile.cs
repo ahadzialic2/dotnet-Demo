@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using dotnet_Demo.Dtos.Character;
+using dotnet_Demo.Dtos.Skill;
 using dotnet_Demo.Dtos.Weapon;
 using dotnet_Demo.Models;
 
@@ -12,6 +13,7 @@ namespace dotnet_Demo
             CreateMap<Character, GetCharacterDto>();
             CreateMap<AddCharacterDto, Character>();
             CreateMap<Weapon, GetWeaponDto>();
+            CreateMap<Skill, GetSkillDto>();
         }
     }
 }

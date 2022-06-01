@@ -1,4 +1,6 @@
-﻿using dotnet_Demo.Dtos.Weapon;
+﻿using System.Collections.Generic;
+using dotnet_Demo.Dtos.Skill;
+using dotnet_Demo.Dtos.Weapon;
 using dotnet_Demo.Models;
 
 namespace dotnet_Demo.Dtos.Character
@@ -13,6 +15,7 @@ namespace dotnet_Demo.Dtos.Character
         public int Intelligence { get; set; } = 10;
         public RpgClass Class { get; set; } = RpgClass.Knight;
         public GetWeaponDto Weapon { get; set; }
+        public List<GetSkillDto> Skills { get; set; }
 
     }
 }
