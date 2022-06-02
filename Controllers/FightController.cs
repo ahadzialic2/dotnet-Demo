@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace dotnet_Demo.Controllers
 {
     [ApiController]
-    [Route("controller")]
+    [Route("[controller]")]
+
     public class FightController : ControllerBase
     {
         private readonly IFightService _fightService;
@@ -25,6 +26,11 @@ namespace dotnet_Demo.Controllers
         public async Task<ActionResult<ServiceResponse<AttackResultDto>>> SkillAttack(SkillAttackDto request)
         {
             return Ok(await _fightService.SkillAttack(request));
+        }
+        [HttpPost]//default call ovog kotrolera
+        public async Task<ActionResult<ServiceResponse<FightResultDto>>> Fight(FightRequestDto request)
+        {
+            return Ok(await _fightService.Fight(request));
         }
     }
 }
