@@ -1,4 +1,7 @@
-﻿using dotnet_Demo.Services.FightService;
+﻿using System.Threading.Tasks;
+using dotnet_Demo.Dtos.Fight;
+using dotnet_Demo.Models;
+using dotnet_Demo.Services.FightService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace dotnet_Demo.Controllers
@@ -12,6 +15,11 @@ namespace dotnet_Demo.Controllers
         public FightController(IFightService fightService)
         {
             _fightService = fightService;
+        }
+        [HttpPost("Weapon")]
+        public async Task<ActionResult<ServiceResponse<AttackResultDto>>> WeaponAttack(WeaponAttackDto request)
+        {
+            return Ok(await _fightService.WeaponAttack(request));
         }
     }
 }
