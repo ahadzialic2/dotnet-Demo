@@ -1,4 +1,4 @@
-# .NET 5 Demo Web API in which I demonstrated fundamentals of Web API in real-world example of text-based role-playing game 
+# .NET 5 Demo Web API 
 
 ## A small text-based role-playing game where different users can register and create their own characters like a mage or a knight, add some skills and a weapon, and also let the characters fight against each other to see who is the best of them all.
 
